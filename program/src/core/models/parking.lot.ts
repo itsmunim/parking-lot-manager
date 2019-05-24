@@ -36,20 +36,20 @@ export default class ParkingLot {
    * @returns {string} A simple status message
    */
   park(car: Car): string {
-    let freeSlotId = '';
-    for (let slotId of Object.keys(this._lotMap)) {
-      if (this._lotMap[slotId].isFree) {
-        freeSlotId = slotId;
-        break;
-      }
-    }
+    const slots = Object.values(this._lotMap);
+    const freeSlots = slots.filter(slot => slot.isFree);
+    const alreadyParked = slots.filter(slot => slot.car && slot.car.regNumber === car.regNumber);
 
-    if (!freeSlotId) {
+    if (!freeSlots.length) {
       return 'Sorry, parking lot is full';
     }
 
-    this._lotMap[freeSlotId].car = car;
-    return `Allocated slot number: ${freeSlotId}`;
+    if (alreadyParked.length) {
+      return 'Sorry, a car with similar registration number is already parked';
+    }
+
+    freeSlots[0].car = car;
+    return `Allocated slot number: ${freeSlots[0].slotId}`;
   }
 
   /**
