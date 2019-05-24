@@ -5,7 +5,9 @@
     "outDir": "dist",
     "sourceMap": true,
     "types": [
-      "node"
+      "node",
+      "mocha",
+      "chai"
     ]
   },
   "include": [
