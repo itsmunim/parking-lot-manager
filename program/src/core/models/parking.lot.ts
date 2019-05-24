@@ -6,7 +6,7 @@ export default class ParkingLot {
   _lastSlotId: number = 0;
 
   constructor(size: number) {
-    while (this._lastSlotId <= size) {
+    while (this._lastSlotId < size) {
       this.addSlot();
     }
   }
