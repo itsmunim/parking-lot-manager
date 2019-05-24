@@ -55,10 +55,55 @@ export default class ParkingLot {
   /**
    * Makes a car in specified slot to leave.
    * @param {string} slotId The slot number to be freed
+   * @returns {string} The status of the action
    */
   leave(slotId: string): string {
     this._lotMap[slotId].car = null;
     return `Slot number ${slotId} is free`;
+  }
+
+  /**
+   * Returns the size of the lot at any point of time.
+   * @returns {number} The size of the lot
+   */
+  size(): number {
+    return Object.keys(this._lotMap).length;
+  }
+
+  /**
+   * Returns the list of registration numbers of cars with same color
+   * @param {string} bodyColor The color to search with
+   * @returns {string} Comma separated list of registration numbers
+   */
+  registrationNumbersForCarsWithColor(bodyColor: string): string {
+    return this._carsWithSameColor(bodyColor)
+      .map(slot => slot.car.regNumber).join(', ');
+  }
+
+  /**
+   * Returns the list of registration numbers of cars with same color
+   * @param {string} bodyColor The color to search with
+   * @returns {string} Comma separated list of slot numbers
+   */
+  slotNumbersForCarsWithColour(bodyColor: string) {
+    return this._carsWithSameColor(bodyColor)
+      .map(slot => slot.slotId).join(', ');
+  }
+
+  /**
+   * Finds the slot occupied by a specific car with provider reg number and
+   * returns the slot number.
+   * @param regNumber
+   * @returns {string} The found slot number|`Not Found`
+   */
+  slotNumberForRegistrationNumber(regNumber: string): string {
+    let foundSlots = Object.values(this._lotMap)
+      .filter(slot => !slot.isFree && slot.car.regNumber === regNumber);
+    if (!foundSlots.length) {
+      return 'Not found';
+    }
+
+    return foundSlots[0].slotId;
   }
 
   /**
@@ -77,5 +122,15 @@ export default class ParkingLot {
     });
 
     return parkingLotStatus;
+  }
+
+  /**
+   * Returns the cars with same color in the parking lot.
+   * @param {string} bodyColor
+   * @private
+   */
+  _carsWithSameColor(bodyColor: string) {
+    return Object.values(this._lotMap)
+      .filter(slot => !slot.isFree && slot.car.bodyColor === bodyColor);
   }
 }
