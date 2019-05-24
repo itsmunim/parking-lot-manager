@@ -70,6 +70,59 @@ describe('ParkingLot', () => {
 
     });
   });
+
+  describe('registrationNumbersForCarsWithColor', () => {
+    it ('will return registration numbers of cars with same color, as comma separated string', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      parkingLot.park(new Car('12345', 'Blue'));
+      parkingLot.park(new Car('12341', 'Grey'));
+      parkingLot.park(new Car('12346', 'Blue'));
+      expect(parkingLot.registrationNumbersForCarsWithColor('Blue')).to.equal('12345, 12346');
+    });
+
+    it ('will return empty string when no color is given', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      parkingLot.park(new Car('12345', 'Blue'));
+      parkingLot.park(new Car('12341', 'Grey'));
+      parkingLot.park(new Car('12346', 'Blue'));
+      expect(parkingLot.registrationNumbersForCarsWithColor('')).to.equal('');
+    });
+  });
+
+  describe('slotNumbersForCarsWithColour', () => {
+    it ('will return slot numbers for cars with same color, as comma separated string', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      parkingLot.park(new Car('12345', 'Blue'));
+      parkingLot.park(new Car('12341', 'Grey'));
+      parkingLot.park(new Car('12346', 'Blue'));
+      expect(parkingLot.slotNumbersForCarsWithColour('Blue')).to.equal('2, 4');
+    });
+  });
+
+  describe('slotNumberForRegistrationNumber', () => {
+    it ('will return slot number of the car with specified reg number', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      parkingLot.park(new Car('12345', 'Blue'));
+      parkingLot.park(new Car('12341', 'Grey'));
+      parkingLot.park(new Car('12346', 'Blue'));
+      expect(parkingLot.slotNumberForRegistrationNumber('12341')).to.equal('3');
+      expect(parkingLot.slotNumberForRegistrationNumber('12347')).to.equal('1');
+    });
+  });
+
+  describe('status', () => {
+    it ('returns the status of the parking lot in specific format', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      let expectedStr = `Slot No.${''.padEnd(2)}Registration No${''.padEnd(4)}Colour\n`;
+      expectedStr += `1${''.padEnd(9)}12347${''.padEnd(6)}Red\n`;
+      expect(parkingLot.status()).to.equal(expectedStr);
+    });
+  });
 });
 
 
