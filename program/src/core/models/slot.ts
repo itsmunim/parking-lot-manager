@@ -7,10 +7,7 @@ export default class Slot {
 
   constructor(slotId: string, car: Car = null) {
     this.slotId = slotId;
-    if (car) {
-      this._car = car;
-      this.isFree = false;
-    }
+    this.car = car;
   }
 
   get car() {
