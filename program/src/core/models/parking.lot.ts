@@ -71,12 +71,20 @@ export default class ParkingLot {
   }
 
   /**
+   * Returns the numbers of slots free at this moment.
+   * @returns {number} The count of slots which are free
+   */
+  freeSize(): number {
+    return Object.values(this._lotMap).filter(slot => slot.isFree).length;
+  }
+
+  /**
    * Returns the list of registration numbers of cars with same color
    * @param {string} bodyColor The color to search with
    * @returns {string} Comma separated list of registration numbers
    */
   registrationNumbersForCarsWithColor(bodyColor: string): string {
-    return this._carsWithSameColor(bodyColor)
+    return this._slotsWithSameColoredCars(bodyColor)
       .map(slot => slot.car.regNumber).join(', ');
   }
 
@@ -86,7 +94,7 @@ export default class ParkingLot {
    * @returns {string} Comma separated list of slot numbers
    */
   slotNumbersForCarsWithColour(bodyColor: string) {
-    return this._carsWithSameColor(bodyColor)
+    return this._slotsWithSameColoredCars(bodyColor)
       .map(slot => slot.slotId).join(', ');
   }
 
@@ -109,6 +117,7 @@ export default class ParkingLot {
   /**
    * Shows the current status of the parking lot. Only
    * the occupied slots.
+   * @returns {string} The status of the parking lot in a specific format
    */
   status(): string {
     const spaced = (count: number): string => ''.padEnd(count);
@@ -127,9 +136,10 @@ export default class ParkingLot {
   /**
    * Returns the cars with same color in the parking lot.
    * @param {string} bodyColor
+   * @returns {Slot[]} List of slots with cars of same color
    * @private
    */
-  _carsWithSameColor(bodyColor: string) {
+  _slotsWithSameColoredCars(bodyColor: string): Slot[] {
     return Object.values(this._lotMap)
       .filter(slot => !slot.isFree && slot.car.bodyColor === bodyColor);
   }
