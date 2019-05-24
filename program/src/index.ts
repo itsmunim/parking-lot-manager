@@ -12,6 +12,6 @@ function run(): void {
   if (_isInteractive()) {
     console.log('program running in interactive mode');
   }
-};
+}
 
 run();
