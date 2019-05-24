@@ -1,0 +1,11 @@
+{
+  "name": "gojek-parking-lot",
+  "version": "1.0.0",
+  "description": "A simple command line implementation of a ticketing system for parking lot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Munim Dibosh",
+  "license": "ISC"
+}
