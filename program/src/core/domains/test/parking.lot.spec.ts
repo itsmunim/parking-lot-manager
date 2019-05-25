@@ -70,14 +70,14 @@ describe('ParkingLot', () => {
     });
   });
 
-  describe('registrationNumbersForCarsWithColor', () => {
+  describe('registrationNumbersForCarsWithColour', () => {
     it ('will return registration numbers of cars with same color, as comma separated string', () => {
       const parkingLot = new ParkingLot(5);
       parkingLot.park(new Car('12347', 'Red'));
       parkingLot.park(new Car('12345', 'Blue'));
       parkingLot.park(new Car('12341', 'Grey'));
       parkingLot.park(new Car('12346', 'Blue'));
-      expect(parkingLot.registrationNumbersForCarsWithColor('Blue')).to.equal('12345, 12346');
+      expect(parkingLot.registrationNumbersForCarsWithColour('Blue')).to.equal('12345, 12346');
     });
 
     it ('will return empty string when no color is given', () => {
@@ -86,7 +86,7 @@ describe('ParkingLot', () => {
       parkingLot.park(new Car('12345', 'Blue'));
       parkingLot.park(new Car('12341', 'Grey'));
       parkingLot.park(new Car('12346', 'Blue'));
-      expect(parkingLot.registrationNumbersForCarsWithColor('')).to.equal('');
+      expect(parkingLot.registrationNumbersForCarsWithColour('')).to.equal('');
     });
   });
 

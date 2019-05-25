@@ -38,7 +38,7 @@ describe('ParkingLotManager', () => {
     });
   });
 
-  describe('registrationNumbersForCarsWithColor', () => {
+  describe('registrationNumbersForCarsWithColour', () => {
     it ('will return registration numbers of cars with same color, as comma separated string', () => {
       const parkingLotManager = new ParkingLotManager(5);
       parkingLotManager.park('1234', 'White');
@@ -46,7 +46,7 @@ describe('ParkingLotManager', () => {
       parkingLotManager.park('1254', 'Blue');
       parkingLotManager.park('1264', 'White');
       parkingLotManager.park('1274', 'White');
-      expect(parkingLotManager.registrationNumbersForCarsWithColor('White')).to.equal('1234, 1264, 1274');
+      expect(parkingLotManager.registrationNumbersForCarsWithColour('White')).to.equal('1234, 1264, 1274');
     });
   });
 

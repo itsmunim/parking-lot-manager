@@ -26,8 +26,8 @@ export default class ParkingLotManager {
     return this._parkingLot.status();
   }
 
-  registrationNumbersForCarsWithColor(bodyColor: string): string {
-    return this._parkingLot.registrationNumbersForCarsWithColor(bodyColor);
+  registrationNumbersForCarsWithColour(bodyColor: string): string {
+    return this._parkingLot.registrationNumbersForCarsWithColour(bodyColor);
   }
 
   slotNumbersForCarsWithColour(bodyColor: string): string {

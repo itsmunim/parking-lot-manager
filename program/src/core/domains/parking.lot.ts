@@ -83,7 +83,7 @@ export default class ParkingLot {
    * @param {string} bodyColor The color to search with
    * @returns {string} Comma separated list of registration numbers
    */
-  registrationNumbersForCarsWithColor(bodyColor: string): string {
+  registrationNumbersForCarsWithColour(bodyColor: string): string {
     return this._slotsWithSameColoredCars(bodyColor)
       .map(slot => slot.car.regNumber).join(', ');
   }
