@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import ParkingLot from '../parking.lot';
-import Slot from '../slot';
 import Car from '../car';
 
 describe('ParkingLot', () => {
