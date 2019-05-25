@@ -111,6 +111,13 @@ describe('ParkingLot', () => {
       expect(parkingLot.slotNumberForRegistrationNumber('12341')).to.equal('3');
       expect(parkingLot.slotNumberForRegistrationNumber('12347')).to.equal('1');
     });
+
+    it ('will return `Not found` if the car with specified reg number is not parked', () => {
+      const parkingLot = new ParkingLot(5);
+      parkingLot.park(new Car('12347', 'Red'));
+      parkingLot.park(new Car('12345', 'Blue'));
+      expect(parkingLot.slotNumberForRegistrationNumber('12348')).to.equal('Not found');
+    });
   });
 
   describe('status', () => {
