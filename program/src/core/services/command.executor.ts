@@ -2,7 +2,7 @@ import {Interface} from 'readline';
 import chalk from 'chalk';
 import ParkingLotManager from './parking.lot.manager';
 
-enum InterfaceType {File, STDIN};
+enum InterfaceType {File, STDIN}
 
 class CommandExecutor {
   _readInterface: Interface = null;
@@ -41,16 +41,12 @@ class CommandExecutor {
           this._readInterface.close();
         }
 
-        const normalisedCommand = this._toCamelCase(commands[0]);
-        const parkingLotSize = this._isParkingLotCreationCommand(normalisedCommand) ? parseInt(commands[1]) : null;
-        const parkingLotManager = this.getParkingLotManagerInstance(parkingLotSize);
+        const parkingLotManager = this.getParkingLotManagerInstance() || this._executeIfParkingLotCreationCommand(line);
 
         if (!parkingLotManager) {
           this._log('A parking lot needs to be created first. Try: create_parking_lot 6', 'error');
         } else {
-          if (normalisedCommand in parkingLotManager) {
-            this._log(parkingLotManager[normalisedCommand](...commands.slice(1)));
-          }
+          this._executeCommand(this._toCamelCase(commands[0]), commands.slice(1));
         }
       }
 
@@ -61,6 +57,20 @@ class CommandExecutor {
     });
 
     this._readInterface.on('close', () => process.exit(0));
+  }
+
+  _executeIfParkingLotCreationCommand(line: string): ParkingLotManager {
+    const commands = line.split(' ');
+    const normalisedCommand = this._toCamelCase(commands[0]);
+    const parkingLotSize = this._isParkingLotCreationCommand(normalisedCommand) ? parseInt(commands[1]) : null;
+    return this.getParkingLotManagerInstance(parkingLotSize);
+  }
+
+  _executeCommand(command, args) {
+    const parkingLotManager = this.getParkingLotManagerInstance();
+    if (command in parkingLotManager) {
+      this._log(parkingLotManager[command](...args));
+    }
   }
 
   _log(message: string, level?: string) {
