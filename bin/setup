@@ -1,7 +1,8 @@
-# Add script to:
-# * Install dependencies
-# * Build/Compile
-# * Run Test Suit to validate
-#
-# After this is run, bin/parking_lot
-# should Just Work.
+#!/usr/bin/env bash
+
+DIR=$(pwd)
+
+cd ${DIR}/program/
+npm i
+npm run build
+npm test
