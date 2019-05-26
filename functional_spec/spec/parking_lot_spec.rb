@@ -15,13 +15,13 @@ RSpec.describe 'Parking Lot' do
     run_command(pty, "park KA-01-HH-3141 Black\n")
     expect(fetch_stdout(pty)).to end_with("Allocated slot number: 1\n")
   end
-  
+
   it "can unpark a car" do
     run_command(pty, "park KA-01-HH-3141 Black\n")
     run_command(pty, "leave 1\n")
     expect(fetch_stdout(pty)).to end_with("Slot number 1 is free\n")
   end
-  
+
   it "can report status" do
     run_command(pty, "park KA-01-HH-1234 White\n")
     run_command(pty, "park KA-01-HH-3141 Black\n")
@@ -35,6 +35,35 @@ Slot No.    Registration No    Colour
 EOTXT
 )
   end
-  
-  pending "add more specs as needed"
+
+  it "can find cars with similar color" do
+      run_command(pty, "park KA-01-HH-1234 White\n")
+      run_command(pty, "park KA-01-HH-3141 Black\n")
+      run_command(pty, "park KA-01-HH-9999 White\n")
+      run_command(pty, "registration_numbers_for_cars_with_colour White\n")
+      expect(fetch_stdout(pty)).to end_with("KA-01-HH-1234, KA-01-HH-9999\n")
+  end
+
+  it "can find slot numbers for cars with similar color" do
+          run_command(pty, "park KA-01-HH-1234 White\n")
+          run_command(pty, "park KA-01-HH-3141 Black\n")
+          run_command(pty, "park KA-01-HH-9999 White\n")
+          run_command(pty, "slot_numbers_for_cars_with_colour White\n")
+          expect(fetch_stdout(pty)).to end_with("1, 3\n")
+  end
+
+  it "can find slot number for a specific reg number" do
+            run_command(pty, "park KA-01-HH-1234 White\n")
+            run_command(pty, "park KA-01-HH-3141 Black\n")
+            run_command(pty, "slot_number_for_registration_number KA-01-HH-1234\n")
+            expect(fetch_stdout(pty)).to end_with("1\n")
+  end
+
+  it "will not allow parking when it is full" do
+              run_command(pty, "park KA-01-HH-1234 White\n")
+              run_command(pty, "park KA-01-HH-3141 Black\n")
+              run_command(pty, "park KA-01-HH-9999 White\n")
+              run_command(pty, "park KA-01-HH-9988 Red\n")
+              expect(fetch_stdout(pty)).to end_with("Sorry, parking lot is full\n")
+  end
 end
