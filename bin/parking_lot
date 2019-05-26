@@ -5,10 +5,9 @@
 # it.
 
 # This variable contains absolute path of this `parking_lot` script
-DIR=$(pwd)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-node ${DIR}/program/dist/index.js $1
-
+node ${DIR}/../program/dist/index.js $1
 
 # Use DIR variable above to pinpoint your jar/executable/main class
 # e.g.
