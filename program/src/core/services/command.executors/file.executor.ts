@@ -24,8 +24,8 @@ class FileExecutor extends ShellExecutor {
   }
 
   _onWholeExecutionFinish() {
-    this.log(this._consoleOutput);
-    // super._onWholeExecutionFinish();
+    this.log(this._consoleOutput.trim());
+    super._onWholeExecutionFinish();
   }
 }
 
