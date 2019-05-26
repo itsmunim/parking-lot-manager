@@ -4,7 +4,7 @@ A simple command line interface for managing your parking lot.
 
 ###### Setup
 
-- You can either run: `cd program && npm i` or `./bin/setup` to setup necessary files
+- You can either run: `cd program && npm i && npm run build` or `./bin/setup` to setup necessary files
 
 - In case you can't run `./bin/setup`, give the file `execution` permission by running `chmod +x bin/setup`
 in your terminal
@@ -60,7 +60,7 @@ slot_number_for_registration_number MH-04-AY-1111
 ./bin/parking_lot file.txt
 ```
 
-####### Running the Integration Tests
+###### Running the Integration Tests
 
 - To check both the modes specified above, you can run the whole integration test suit
 given under `functional_spec` dir
@@ -70,3 +70,34 @@ given under `functional_spec` dir
 ```
 
 - To run different specs separately, refer to the `readme` given inside `functional_spec` dir
+
+###### Source Code Structure
+
+- The `core` module contains the main functionality of the CLI
+
+- The file structure looks like below:
+
+```
+| - src
+  | - core
+    | - domains
+      | - test
+      | - car.ts
+      | - ...
+    | - services
+      | - command.executors
+      | - test
+      | - parking.lot.manager.ts
+  | - index.ts
+```
+
+- `src/index.ts` is the entry point for the CLI
+
+- The project uses `typescript` and hence the `npm run build` step is crucial, which creates
+the executable `dist/` dir under `program/`
+
+- `core/domains` contains the main business models for the CLI
+
+- `core/services/command.executors` contains the backbone of execution flow for the CLI
+
+
