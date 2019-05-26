@@ -124,8 +124,8 @@ describe('ParkingLot', () => {
     it ('returns the status of the parking lot in specific format', () => {
       const parkingLot = new ParkingLot(5);
       parkingLot.park(new Car('12347', 'Red'));
-      let expectedStr = `Slot No.${''.padEnd(2)}Registration No${''.padEnd(4)}Colour\n`;
-      expectedStr += `1${''.padEnd(9)}12347${''.padEnd(6)}Red\n`;
+      let expectedStr = `Slot No.${''.padEnd(4)}Registration No${''.padEnd(4)}Colour\n`;
+      expectedStr += `1${''.padEnd(11)}12347${''.padEnd(6)}Red\n`;
       expect(parkingLot.status()).to.equal(expectedStr);
     });
   });

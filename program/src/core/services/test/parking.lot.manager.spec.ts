@@ -75,8 +75,8 @@ describe('ParkingLotManager', () => {
     it ('returns the status of the parking lot in specific format', () => {
       const parkingLotManager = new ParkingLotManager(5);
       parkingLotManager.park('12347', 'Red');
-      let expectedStr = `Slot No.${''.padEnd(2)}Registration No${''.padEnd(4)}Colour\n`;
-      expectedStr += `1${''.padEnd(9)}12347${''.padEnd(6)}Red\n`;
+      let expectedStr = `Slot No.${''.padEnd(4)}Registration No${''.padEnd(4)}Colour\n`;
+      expectedStr += `1${''.padEnd(11)}12347${''.padEnd(6)}Red\n`;
       expect(parkingLotManager.status()).to.equal(expectedStr);
     });
   });

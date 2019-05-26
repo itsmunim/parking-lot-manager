@@ -121,12 +121,16 @@ export default class ParkingLot {
    */
   status(): string {
     const spaced = (count: number): string => ''.padEnd(count);
-    let parkingLotStatus = `Slot No.${spaced(2)}Registration No${spaced(4)}Colour\n`;
+    let parkingLotStatus = `Slot No.${spaced(4)}Registration No${spaced(4)}Colour\n`;
 
-    Object.keys(this._lotMap).forEach((slotId: string) => {
+    const slotIds = Object.keys(this._lotMap);
+    slotIds.forEach((slotId: string, idx: number) => {
       if (!this._lotMap[slotId].isFree) {
         const {regNumber, bodyColor} = this._lotMap[slotId].car;
-        parkingLotStatus += `${slotId}${spaced(9)}${regNumber}${spaced(6)}${bodyColor}\n`;
+        parkingLotStatus += `${slotId}${spaced(11)}${regNumber}${spaced(6)}${bodyColor}`;
+        if (idx !== slotIds.length - 1) {
+          parkingLotStatus += '\n';
+        }
       }
     });
 
