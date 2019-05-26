@@ -1,5 +1,4 @@
 import {Interface, createInterface} from 'readline';
-import chalk from 'chalk';
 import ParkingLotManager from '../parking.lot.manager';
 import {ExecutorType} from './executor.type';
 
@@ -81,11 +80,8 @@ export default class ShellExecutor {
     }
   }
 
-  log(message: string, level?: string) {
-    const chalkFn = level === 'error'
-      ? chalk.red
-      : (level === 'warn' ? chalk.yellowBright : chalk.green);
-    console.log(chalkFn(message));
+  log(message: string) {
+    console.log(message);
   }
 
   _isShellExecutor() {
